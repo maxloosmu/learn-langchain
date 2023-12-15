@@ -1,0 +1,42 @@
+(base) PS C:\Users\maxlo> python -m venv myenv
+(base) PS C:\Users\maxlo> myenv\Scripts\activate
+(myenv) (base) PS C:\Users\maxlo> pip install gradio openai pypdf tiktoken langchain
+
+
+(myenv) (base) PS C:\Users\maxlo> deactivate
+(base) PS C:\Users\maxlo> conda deactivate
+PS C:\Users\maxlo>
+
+
+
+
+
+
+
+text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+texts=text_splitter.split_documents(docs)
+llm=OpenAI()
+chain=load_summarize_chain(llm, chain_type='map_reduce', verbose=True)
+chain.run(texts)
+
+
+def summarize_pdf(pdf_file_path):
+  loader=PyPDFLoader(pdf_file_path)
+  docs=loader.load()
+  text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+  texts=text_splitter.split_documents(docs)
+  chain=load_summarize_chain(llm, chain_type="map_reduce")
+  summary=chain.run(texts)
+  return summary
+
+
+input_pdf_path=gr.components.Textbox(label="Provide the PDF File Path ")
+output_summary=gr.components.Textbox(label="Summary")
+interface=gr.Interface(
+    fn=summarize_pdf,
+    inputs=input_pdf_path,
+    outputs=output_summary,
+    title="PDF Summarizer",
+    description="Provide PDF File Path to get the Summary"
+).launch(share=True)
+

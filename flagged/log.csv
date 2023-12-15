@@ -1,0 +1,3 @@
+Provide the PDF File Path ,Summary,flag,username,timestamp
+2023_GPT4All_Technical_Report,,,,2023-12-16 00:37:28.376745
+2023_GPT4All_Technical_Report.pdf," This paper presents GPT4All, a chatbot trained on a large corpus of assistant interactions. The process of collecting and curating the data involved using the GPT-3.5-Turbo OpenAI API from three publicly available datasets and then cleaning it using Atlas. Several models were trained on 437,605 post-processed examples and released with data, training code, and model weights. Human evaluation data was used to evaluate the models. This project is intended and licensed only for research purposes and is based on OpenAI's GPT-3.5-Turbo.",,,2023-12-16 00:51:08.901304
