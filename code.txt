@@ -10,7 +10,24 @@ PS C:\Users\maxlo>
 
 
 
+from dotenv import load_dotenv
+import os
+import tiktoken
+import gradio as gr
+from langchain import OpenAI, PromptTemplate
+from langchain.chains.summarize import load_summarize_chain
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+load_dotenv()
 
+
+openai_api_key = os.getenv('OPENAI_API_KEY')
+os.environ["OPENAI_API_KEY"]=openai_api_key
+def num_tokens_from_string(string:str, encoding_name:str) -> int:
+  #Returns the Number of Token in a text string
+  encoding = tiktoken.get_encoding(encoding_name)
+  num_tokens=len(encoding.encode(string))
+  return num_tokens
 
 
 text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
